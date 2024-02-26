@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 import Question from "../components/Question/Question";
+import BaseView from "./BaseView";
 
 
 const preguntas = [
-    {id: 1, text:'Por que es importante promover estilos de vida sostenibles?'},
-    {id: 2, text: 'Qué importancia tiene la promoción de una cultura de paz y no violencia para el desarrollo sostenible?'}
+    {id: 1, text:'¿Por que es importante promover estilos de vida sostenibles?'},
+    {id: 2, text: '¿Qué importancia tiene la promoción de una cultura de paz y no violencia para el desarrollo sostenible?'}
 
 ]
 
@@ -31,11 +32,9 @@ function PreguntaView () {
     const navigate = useNavigate();
     const [question, setQuestion ] = useState(preguntas[Math.floor(Math.random() * preguntas.length)]);
 
-    return <>
+    return <BaseView>
         <Question questionText={question.text} options={opciones[question.id]} />
-
-
-    </>
+    </BaseView>
 }
 
 export default PreguntaView

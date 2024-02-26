@@ -1,0 +1,31 @@
+.m-nav-navbar{
+    width: 100%;
+    background: #8b1739;
+    min-height: 5vh;
+    margin-bottom: 1rem;
+}
+
+.m-nav-body{
+    margin-left: 15%;
+    margin-right: 15%;
+    display: flex;
+    align-content: center;
+}
+
+
+.m-nav{
+    display: flex;
+    align-content: center;
+}
+
+.m-nav-link{
+    margin: 0.5rem;
+    text-decoration: none;
+    color: #fefdfc;
+}
+
+.m-nav-link:hover{
+    color: white;
+    text-decoration: white underline;
+}
+

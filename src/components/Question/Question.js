@@ -1,6 +1,3 @@
-import { useState } from "react";
-
-
 import QuestionOption from "../QuestionOption/QuestionOption";
 
 function Question (props){
@@ -11,7 +8,7 @@ function Question (props){
     })
     console.log(optionComponent)
     return <>
-        <h1> {questionText} </h1>
+        <h1 className={'text-center'}> {questionText} </h1>
         <hr/>
         <div>
             {optionComponent}

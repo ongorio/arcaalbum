@@ -1,11 +1,20 @@
 .card{
-    background: darkblue;
-    color: azure;
     max-height: 300px;
     max-width: 200px;
     border: black solid 2px;
     border-radius: 3% 3%;
-    margin: 1rem;
+    margin: 0rem;
+    height: 100%;
+}
+
+.france-card{
+    background: #002152;
+    color: azure;
+}
+
+.mexico-card{
+    background: #006746;
+    color: azure;
 }
 
 .card-image {
@@ -29,4 +38,19 @@
     font-size: 0.6rem;
     padding-left: 0.3rem;
     padding-bottom: 0.3rem;
+}
+
+/* Mobile Options */
+@media only screen and (max-width: 600px){
+    .card{
+        min-height: 300px;
+        min-width: 200px;
+        border: black solid 2px;
+        border-radius: 3% 3%;
+        margin: 0rem;
+        height: 100%;
+
+
+
+    }
 }

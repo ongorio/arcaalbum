@@ -1,0 +1,14 @@
+
+.footer{
+    margin-top: auto;
+    background: #180e19;
+    min-height: 5vh;
+}
+.footer-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #fefdfc;
+}
