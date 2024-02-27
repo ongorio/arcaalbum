@@ -14,3 +14,21 @@
     color: #8b1739;
     cursor: pointer;
 }
+
+.btn-ch{
+    font-size: 1rem;
+    font-weight: normal;
+    text-align: center;
+    padding: 5px;
+}
+
+.btn-no-background{
+    background-color: transparent;
+    border-radius: 0 0;
+    color: #bd9751;
+    border: none;
+}
+
+.btn-no-background:hover{
+    border: none;
+}

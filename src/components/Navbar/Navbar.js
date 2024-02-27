@@ -11,6 +11,7 @@ function Navbar () {
             </div>
             <div className={`${styles['m-nav']} m-ml-auto`}>
                 <NavLink to={'/'} className={`${styles['m-nav-link']}`}>Ingresar</NavLink>
+                <NavLink to={'/registrar'} className={`${styles['m-nav-link']}`}>Registrar</NavLink>
                 <NavLink to={'/'} className={`${styles['m-nav-link']}`}>Salir</NavLink>
             </div>
         </div>

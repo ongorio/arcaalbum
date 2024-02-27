@@ -1,0 +1,18 @@
+.m-form{
+    /*width: 100%;*/
+    background-color: #8b1739;
+    color: #f8f4ea;
+    padding: 1rem;
+    border-radius: 20px 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+
+}
+
+
+@media only screen and (max-width: 900px){
+    .m-form{
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

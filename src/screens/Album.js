@@ -20,17 +20,19 @@ function Album(){
 
     const currentPlayers = players[currentCountry.id];
     const cards = currentPlayers.map(player => {
-        return <div className={'m-col-2'}>
-            <PlayerCard
-                playerName={player.name}
-                position={player.pos}
-                team={player.team}
-                birthdate={player.birthdate}
-                height={player.height}
-                key={player.id}
-                playerPhoto={player.image}
-                countryClass={currentCountry.countryClass}
-            />
+        return <div className={'m-col-4'}>
+            <div className={'m-flex justify-center'}>
+                <PlayerCard
+                    playerName={player.name}
+                    position={player.pos}
+                    team={player.team}
+                    birthdate={player.birthdate}
+                    height={player.height}
+                    key={player.id}
+                    playerPhoto={player.image}
+                    countryClass={currentCountry.countryClass}
+                />
+            </div>
         </div>
 
     });
@@ -55,11 +57,11 @@ function Album(){
         <PaginationBar data={countries} onnext={onNext} onprev={onPrev} currentPage={currentPage} />
         <hr/>
         <div className={'m-row'}>
-            <div className={'m-col-2'}>
+            <div className={'m-col-4'}>
                 <img src={currentCountry.flag} height={150} width={250} className={'m-image'} />
-                <h2>{currentCountry.name}</h2>
+                <h2 className={'text-center'}>{currentCountry.name}</h2>
             </div>
-            <div className={'m-col-6'}>
+            <div className={'m-col-8'}>
                 <div className={'m-row'}>
                     {cards}
                 </div>

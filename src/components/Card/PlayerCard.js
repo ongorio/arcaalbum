@@ -5,7 +5,7 @@ function PlayerCard(props){
     const { playerName, position, team, birthdate, height, playerPhoto, countryClass } = props;
 
     const cardStyle = countryClass + '-card';
-    console.log(cardStyle)
+
     return <div className={`${styles['card']} ${styles[cardStyle]}`}>
         <img src={playerPhoto} height={175} width={100} className={`${styles['card-image']}`}/>
         <div>
