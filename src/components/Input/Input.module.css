@@ -2,7 +2,10 @@
     width: 100%;
     border-radius: 10px 10px;
     border: none;
-    padding: 0.25rem;
+    padding: 0.3rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 
@@ -11,3 +14,11 @@
 .input:focus{
     box-shadow: #f8f4ea 0 0 3px 5px;
 }
+
+.invalid{
+    box-shadow: #db0404 0 0 3px 5px;
+}
+
+/*.input{*/
+/*    box-shadow: #db0404 0 0 3px 5px;*/
+/*}*/

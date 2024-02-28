@@ -9,9 +9,8 @@ import FailView from './screens/FailView';
 import HomeView from "./screens/HomeView";
 import Album from "./screens/Album";
 import NewCardView from "./screens/NewCardView";
-import registerView from "./screens/RegisterView";
 import RegisterView from "./screens/RegisterView";
-
+import LoginView from "./screens/LoginView";
 
 function App() {
   return (
@@ -23,6 +22,7 @@ function App() {
         <Route path='/album' element={<Album/>} />
         <Route path='/newcards' element={<NewCardView/>} />
         <Route path={'/registrar'} element={<RegisterView/>} />
+        <Route path={'/ingresar'} element={<LoginView/>} />
     </Routes>
   );
 }
