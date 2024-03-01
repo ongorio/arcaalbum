@@ -1,5 +1,9 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+import { auth } from '../../fbapp/fbapp';
+import {AuthContext} from "../../context/AuthContext";
 
 import Input from "../Input/Input";
 
@@ -9,7 +13,10 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 
 function LoginForm () {
 
+    const ctx = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const [loginError, setLoginError] = useState(null);
 
     const [emailInputState, setEmailInputState] = useState({errors: [], isValid: true});
     const [pswdInputState, setPswdInputState] = useState({errors: [], isValid: true});
@@ -18,7 +25,7 @@ function LoginForm () {
     const emailInputRef = useRef(null);
     const passwordInputRef = useRef(null);
 
-    function onSubmitHandler(event){
+    async function onSubmitHandler(event){
         event.preventDefault(passwordInputRef);
 
         let emailValue = emailInputRef.current.value;
@@ -59,6 +66,25 @@ function LoginForm () {
         if (!isEmailValid) emailInputRef.current.focus();
         else if (!isPswdValid) passwordInputRef.current.focus();
 
+        if (isEmailValid && isPswdValid){
+            try{
+
+                const response = await ctx.login(emailValue, passwordValue);
+                if (response.success){
+                    setLoginError(null);
+                    navigate('/');
+                    return;
+                }
+                let error = response.errors[0]
+                if (error === 'auth/invalid-credential'){
+                    setLoginError('Correo/Contrasena Incorrecto')
+                }else{
+                    setLoginError('Algo Salio Mal! Vuelve a Intentarlo');
+                }
+            }catch (error){
+                setLoginError('Algo Salio Mal! Vuelve a Intentarlo');
+            }
+        }
     }
 
     function registerLinkHandler(event){
@@ -67,6 +93,14 @@ function LoginForm () {
     }
 
     return <form className={`${styles['m-form']}`} onSubmit={onSubmitHandler}>
+        {
+            loginError &&
+            <div style={{marginBottom: '1rem'}}>
+                <ErrorMessage>{loginError}</ErrorMessage>
+            </div>
+        }
+
+
         <label>Correo</label>
         <div style={{marginBottom: '1rem'}}>
 

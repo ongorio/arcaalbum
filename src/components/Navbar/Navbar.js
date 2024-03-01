@@ -1,7 +1,13 @@
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import styles from './Navbar.module.css';
 
+import {AuthContext} from "../../context/AuthContext";
+
 function Navbar () {
+
+    const ctx = useContext(AuthContext);
+
     return <nav className={`${styles['m-nav-navbar']}`}>
         <div className={`${styles['m-nav-body']}`}>
             <div className={`${styles['m-nav']}`}>
@@ -10,9 +16,17 @@ function Navbar () {
                 <NavLink to={'/'} className={`${styles['m-nav-link']}`}>Perfil</NavLink>
             </div>
             <div className={`${styles['m-nav']} m-ml-auto`}>
-                <NavLink to={'/ingresar'} className={`${styles['m-nav-link']}`}>Ingresar</NavLink>
-                <NavLink to={'/registrar'} className={`${styles['m-nav-link']}`}>Registrar</NavLink>
-                <NavLink to={'/'} className={`${styles['m-nav-link']}`}>Salir</NavLink>
+
+                {!ctx.userInfo.isAuthenticated &&
+                    <NavLink to={'/ingresar'} className={`${styles['m-nav-link']}`}>Ingresar</NavLink>
+                }
+                {!ctx.userInfo.isAuthenticated &&
+                    <NavLink to={'/registrar'} className={`${styles['m-nav-link']}`}>Registrar</NavLink>
+                }
+
+                {ctx.userInfo.isAuthenticated &&
+                    <NavLink onClick={ctx.logout} className={`${styles['m-nav-link']}`}>Salir</NavLink>
+                }
             </div>
         </div>
         

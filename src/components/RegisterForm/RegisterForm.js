@@ -1,5 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+import { auth } from '../../fbapp/fbapp';
+
 
 import styles from './RegisterForm.module.css'
 
@@ -100,6 +104,22 @@ function RegisterForm () {
         else if (!isNombreValid) nombreInputRef.current.focus();
         else if (!isApellidoValid) apellidoInputRef.current.focus();
         else if (!isPasswordValid) pswdInputRef.current.focus();
+
+        if (isEmailValid && isNombreValid && isApellidoValid && isPasswordValid){
+            createUserWithEmailAndPassword(auth, emailValue, passwordValue)
+                .then(userCredential =>{
+                    const user = userCredential;
+                    console.log('User: ', user);
+                    navigate('/')
+                }).catch(error=>{
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+
+                    console.log('Error Code: ', errorCode);
+                    console.log('Error Message: ', errorMessage);
+
+            })
+        }
     }
 
     return <form className={`${styles['m-form']}`} onSubmit={onSubmitHandler}>
