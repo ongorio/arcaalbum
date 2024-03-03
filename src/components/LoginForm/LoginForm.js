@@ -28,17 +28,17 @@ function LoginForm () {
     async function onSubmitHandler(event){
         event.preventDefault(passwordInputRef);
 
-        let emailValue = emailInputRef.current.value;
-        let passwordValue = passwordInputRef.current.value;
+        let emailValue = emailInputRef.current.getValue();
+        let passwordValue = passwordInputRef.current.getValue();
 
         let isEmailValid = true;
         let isPswdValid = true;
 
-        if(emailValue === null || emailValue === '' || !emailValue.includes('@')){
+        if(emailValue === null || emailValue === undefined || emailValue === '' || !emailValue.includes('@')){
             isEmailValid = false;
         }
 
-        if (passwordValue === null || passwordValue === ''){
+        if (passwordValue === null || passwordValue === undefined || passwordValue === ''){
             isPswdValid = false;
         }
 
@@ -124,7 +124,7 @@ function LoginForm () {
             </p>
         </small>
         <div className={'m-flex'} style={{marginTop: '1rem'}}>
-            <Button className={'m-ml-auto'} btnType={'btn-ch'}>Ingresar</Button>
+            <Button className={'m-ml-auto'} btnType={'btn-ch'} type={'submit'}>Ingresar</Button>
         </div>
 
     </form>

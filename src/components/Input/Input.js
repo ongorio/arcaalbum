@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useImperativeHandle, useRef }  from 'react';
 import styles from './Input.module.css';
 
 const Input = React.forwardRef((props, ref) => {
@@ -13,6 +13,7 @@ const Input = React.forwardRef((props, ref) => {
         disabled = false
     } = props;
 
+    const inputRef = useRef(null);
 
     let classes = styles['input'];
 
@@ -20,6 +21,20 @@ const Input = React.forwardRef((props, ref) => {
         classes += ' ' + styles['invalid'];
     }
 
-    return <input type={type} className={`${classes} ${className}`} ref={ref} placeholder={placeholder} disabled={disabled} />
+    useImperativeHandle(ref, () => {
+        return {
+            changeValue: newValue =>{
+                inputRef.current.value = newValue;
+            },
+            focus: () =>{
+                inputRef.current.focus();
+            },
+            getValue: () =>{
+                return inputRef.current.value;
+            }
+        }
+    }, [])
+
+    return <input type={type} className={`${classes} ${className}`} ref={inputRef} placeholder={placeholder} disabled={disabled} />
 });
 export default Input

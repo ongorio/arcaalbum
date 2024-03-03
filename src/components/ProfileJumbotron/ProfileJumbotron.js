@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import styles from './ProfileJumbotron.module.css'
 
@@ -6,8 +6,11 @@ import Button from "../Button/Button";
 
 import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
 
+import {AuthContext} from "../../context/AuthContext";
+
 function ProfileJumbotron() {
     const [editing, setEditing] = useState(false);
+    const ctx = useContext(AuthContext);
 
     function editBtnHandler(){
         setEditing(true)
@@ -24,10 +27,10 @@ function ProfileJumbotron() {
         {
             !editing &&
             <div className={'text-center'}>
-                <h2>Juan Hernandez</h2>
+                <h2>{ctx.userInfo.firstname}</h2>
                 <p>
                     <strong>Correo </strong> <br/>
-                    juan.hernandez@example.com <br/>
+                    {ctx.userInfo.email} <br/>
                     <strong>Cartas Coleccionadas </strong> <br/>
                     55 <br/>
                 </p>

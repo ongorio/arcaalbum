@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useState, useRef, useContext } from "react";
 
-import { auth } from '../../fbapp/fbapp';
+import {AuthContext} from "../../context/AuthContext";
 
 
 import styles from './RegisterForm.module.css'
@@ -14,6 +13,7 @@ import Input from "../Input/Input";
 function RegisterForm () {
 
     const navigate = useNavigate();
+    const ctx = useContext(AuthContext)
 
     const emailInputRef = useRef(null);
     const nombreInputRef = useRef(null);
@@ -31,32 +31,33 @@ function RegisterForm () {
         navigate('/ingresar')
     }
 
-    function onSubmitHandler (event){
+    async function onSubmitHandler (event){
         event.preventDefault();
 
-        let emailValue = emailInputRef.current.value;
-        let nombreValue = nombreInputRef.current.value;
-        let apellidoValue = apellidoInputRef.current.value;
-        let passwordValue = pswdInputRef.current.value;
+        let emailValue = emailInputRef.current.getValue();
+        let nombreValue = nombreInputRef.current.getValue();
+        let apellidoValue = apellidoInputRef.current.getValue();
+        let passwordValue = pswdInputRef.current.getValue();
 
         let isEmailValid = true;
         let isNombreValid = true;
         let isApellidoValid = true;
         let isPasswordValid = true;
 
-        if (emailValue === null || emailValue === '' || !emailValue.includes('@')){
+
+        if (emailValue === null || emailValue === undefined || emailValue === '' || !emailValue.includes('@')){
             isEmailValid = false;
         }
 
-        if (nombreValue === null || nombreValue === '' || nombreValue.length < 2){
+        if (nombreValue === null || nombreValue === undefined || nombreValue === '' || nombreValue.length < 2){
             isNombreValid = false;
         }
 
-        if (apellidoValue === null || apellidoValue === '' || nombreValue.length < 2){
+        if (apellidoValue === null || apellidoValue === undefined || apellidoValue === '' || nombreValue.length < 2){
             isApellidoValid = false;
         }
 
-        if (passwordValue === null || passwordValue === '' || passwordValue < 6){
+        if (passwordValue === null || passwordValue === undefined || passwordValue === '' || passwordValue < 6){
             isPasswordValid = false;
         }
 
@@ -106,19 +107,10 @@ function RegisterForm () {
         else if (!isPasswordValid) pswdInputRef.current.focus();
 
         if (isEmailValid && isNombreValid && isApellidoValid && isPasswordValid){
-            createUserWithEmailAndPassword(auth, emailValue, passwordValue)
-                .then(userCredential =>{
-                    const user = userCredential;
-                    console.log('User: ', user);
-                    navigate('/')
-                }).catch(error=>{
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
 
-                    console.log('Error Code: ', errorCode);
-                    console.log('Error Message: ', errorMessage);
-
-            })
+            let response = await ctx.register({emailValue, apellidoValue, nombreValue, passwordValue});
+            console.log(response)
+            // TODO: Handle firebase errors properly
         }
     }
 
@@ -156,7 +148,7 @@ function RegisterForm () {
             </p>
         </small>
         <div className={'m-flex'} style={{marginTop: '1rem'}}>
-            <Button className={'m-ml-auto'} btnType={'btn-ch'} >Registrarse</Button>
+            <Button className={'m-ml-auto'} btnType={'btn-ch'} type={'submit'} >Registrarse</Button>
         </div>
     </form>
 }
