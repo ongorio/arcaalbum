@@ -11,6 +11,7 @@ import Album from "./screens/Album";
 import NewCardView from "./screens/NewCardView";
 import RegisterView from "./screens/RegisterView";
 import LoginView from "./screens/LoginView";
+import ProfileView from "./screens/ProfileView";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/newcards' element={<NewCardView/>} />
         <Route path={'/registrar'} element={<RegisterView/>} />
         <Route path={'/ingresar'} element={<LoginView/>} />
+        <Route path={'/perfil'} element={<ProfileView/>} />
     </Routes>
   );
 }

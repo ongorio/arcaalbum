@@ -6,7 +6,8 @@ function Button(props){
         onClick,
         disabled = false,
         btnType=null,
-        className = null
+        className = null,
+        type = 'button'
     } = props
 
     let classes = className + ` ${styles['btn']}`;
@@ -15,7 +16,7 @@ function Button(props){
     if (btnType != null && btnType.includes('btn-ch')) classes += ` ${styles['btn-ch']}`;
     if (btnType != null && btnType.includes('btn-no-background')) classes += ` ${styles['btn-no-background']}`;
 
-    return <button className={classes} onClick={onClick} disabled={disabled}>
+    return <button className={classes} onClick={onClick} disabled={disabled} type={type}>
         {props.children}
     </button>
 }

@@ -20,7 +20,7 @@ function Album(){
 
     const currentPlayers = players[currentCountry.id];
     const cards = currentPlayers.map(player => {
-        return <div className={'m-col-4'}>
+        return <div className={'m-col-4'} key={player.id}>
             <div className={'m-flex justify-center'}>
                 <PlayerCard
                     playerName={player.name}
@@ -28,7 +28,6 @@ function Album(){
                     team={player.team}
                     birthdate={player.birthdate}
                     height={player.height}
-                    key={player.id}
                     playerPhoto={player.image}
                     countryClass={currentCountry.countryClass}
                 />

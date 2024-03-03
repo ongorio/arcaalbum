@@ -9,7 +9,8 @@ const Input = React.forwardRef((props, ref) => {
         onChange = null,
         onBlur = null,
         placeholder = null,
-        isValid = true
+        isValid = true,
+        disabled = false
     } = props;
 
 
@@ -19,6 +20,6 @@ const Input = React.forwardRef((props, ref) => {
         classes += ' ' + styles['invalid'];
     }
 
-    return <input type={type} className={`${classes} ${className}`} ref={ref} placeholder={placeholder} />
+    return <input type={type} className={`${classes} ${className}`} ref={ref} placeholder={placeholder} disabled={disabled} />
 });
 export default Input
