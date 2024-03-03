@@ -1,25 +1,25 @@
-import {useState} from "react";
+import {useState, useContext} from "react";
+
+import {PlayersContext} from "../context/PlayersContext";
+
+import questionPhoto from '../assets/questionmark.jpg'
 
 import PlayerCard from "../components/Card/PlayerCard";
-import franceFlag from '../assets/franceflage.png';
-import mexicoFlag from '../assets/mexicoflag.jpg'
-import questionCard from '../assets/questionmark.jpg'
 
 import PaginationBar from "../components/PaginationBar/PaginationBar";
 
 import BaseView from "./BaseView";
 
-
-import { countries, players } from '../data/playersData'
-
-
 function Album(){
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [currentCountry, setCurrentCountry] = useState(countries[0]);
+    const ctx = useContext(PlayersContext);
 
-    const currentPlayers = players[currentCountry.id];
-    const cards = currentPlayers.map(player => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [currentCountry, setCurrentCountry] = useState(ctx.countries[0]);
+
+    const currentPlayers = ctx.players[currentCountry.id];
+
+    const cards = currentPlayers.map(player=>{
         return <div className={'m-col-4'} key={player.id}>
             <div className={'m-flex justify-center'}>
                 <PlayerCard
@@ -28,32 +28,31 @@ function Album(){
                     team={player.team}
                     birthdate={player.birthdate}
                     height={player.height}
-                    playerPhoto={player.image}
+                    playerPhoto={(player.owned ? player.image : questionPhoto)}
                     countryClass={currentCountry.countryClass}
                 />
-            </div>
-        </div>
 
-    });
+            </div>
+
+        </div>
+    })
 
     const onNext = ()=>{
         setCurrentPage(prevState => {
-            setCurrentCountry(countries[prevState])
+            setCurrentCountry(ctx.countries[prevState])
             return prevState + 1
         })
-        //setCurrentCountry(countries[currentPage])
     }
 
     const onPrev = () => {
         setCurrentPage(prevState => {
-            setCurrentCountry(countries[prevState - 2])
+            setCurrentCountry(ctx.countries[prevState - 2])
             return prevState - 1
         });
-        //setCurrentCountry(countries[currentPage])
     }
 
     return <BaseView>
-        <PaginationBar data={countries} onnext={onNext} onprev={onPrev} currentPage={currentPage} />
+        <PaginationBar data={ctx.countries} onnext={onNext} onprev={onPrev} currentPage={currentPage} />
         <hr/>
         <div className={'m-row'}>
             <div className={'m-col-4'}>

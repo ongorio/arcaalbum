@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {auth, app, db} from "../fbapp/fbapp";
+import {auth, db} from "../fbapp/fbapp";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut} from "firebase/auth";
-import {doc, setDoc, addDoc, collection, getDoc} from "firebase/firestore";
+import {doc, setDoc, getDoc} from "firebase/firestore";
+import Loading from "../components/Loading/Loading";
 
 export const AuthContext = React.createContext({
     login: (email, pswd) =>{},
@@ -31,6 +32,7 @@ export const AuthContextProvider = props =>{
         userUid: ''
     })
 
+    const [userInfoLoaded, setUserInfoLoaded] = useState(false);
 
     async function getUserData(){
         if(userInfo.isAuthenticated){
@@ -74,6 +76,7 @@ export const AuthContextProvider = props =>{
     }
 
     async function login(email, pswd) {
+        setUserInfoLoaded(false)
         let response = {errors: [], success: true};
 
         try{
@@ -93,6 +96,7 @@ export const AuthContextProvider = props =>{
     }
 
     function logout (){
+        setUserInfoLoaded(false)
         signOut(auth)
             .then(()=>{
                 setUserInfo(prevState => {
@@ -125,6 +129,7 @@ export const AuthContextProvider = props =>{
                     return {...prevState, email: '', firstname: '', lastname: '', userUid: '' ,  isAuthenticated: false}
                 })
             }
+            setUserInfoLoaded(true)
         })
     },[])
 
@@ -137,6 +142,6 @@ export const AuthContextProvider = props =>{
         userInfo: userInfo,
         getUserData: getUserData
     }}>
-        {props.children}
+         {!userInfoLoaded ? <Loading/> : props.children}
     </ AuthContext.Provider>
 }

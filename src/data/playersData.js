@@ -19,7 +19,7 @@ export const players = {
         {id: 6, name: 'Ngolo Kante', team: 'Chelsea', birthdate: '29 Marzo 1991', height: '1.68 m', pos: 'medio', image: PlayerPhoto},
         {id: 7, name: 'Paul Pogba', team: 'Manchester United', birthdate: '15 Marzo 1993', height: '1.91 m', pos: 'medio', image: PlayerPhoto},
         {id: 8, name: 'Blaise Matuidi', team: 'Juventus', birthdate: '9 Abril 1987', height: '1.80 m', pos: 'medio', image: PlayerPhoto},
-        {id: 9, name: 'Kylian Mbappe', team: 'PSG', birthdate: '20 Diciembre 1998', height: '1.78', pos: 'delantero', image: PlayerPhoto},
+        {id: 9, name: 'Kylian Mbappe', team: 'PSG', birthdate: '20 Diciembre 1998', height: '1.78 m', pos: 'delantero', image: PlayerPhoto},
         {id: 10, name: 'Antoine Griezman', team: 'Atletico Madrid', birthdate: '21 Marzo 1991', height: '1.76 m', pos: 'delantero', image: PlayerPhoto},
         {id: 11, name: 'Olivier Giroud', team: 'Arsenal', birthdate: '30 Septiembre 1986', height: '1.93 m', pos: 'delantero', image: PlayerPhoto},
     ],
