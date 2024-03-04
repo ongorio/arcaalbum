@@ -1,6 +1,7 @@
-import {useState, useContext} from "react";
+import {useState, useContext, useEffect} from "react";
 
 import {PlayersContext} from "../context/PlayersContext";
+import {CardOwnershipContext} from "../context/CardOwnershipContext";
 
 import questionPhoto from '../assets/questionmark.jpg'
 
@@ -13,6 +14,7 @@ import BaseView from "./BaseView";
 function Album(){
 
     const ctx = useContext(PlayersContext);
+    const ownershipCtx = useContext(CardOwnershipContext)
 
     const [currentPage, setCurrentPage] = useState(1);
     const [currentCountry, setCurrentCountry] = useState(ctx.countries[0]);
@@ -31,11 +33,10 @@ function Album(){
                     playerPhoto={(player.owned ? player.image : questionPhoto)}
                     countryClass={currentCountry.countryClass}
                 />
-
             </div>
-
         </div>
     })
+
 
     const onNext = ()=>{
         setCurrentPage(prevState => {

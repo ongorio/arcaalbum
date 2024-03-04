@@ -7,10 +7,12 @@ import Button from "../Button/Button";
 import ProfileEditForm from "../ProfileEditForm/ProfileEditForm";
 
 import {AuthContext} from "../../context/AuthContext";
+import {CardOwnershipContext} from "../../context/CardOwnershipContext";
 
 function ProfileJumbotron() {
     const [editing, setEditing] = useState(false);
     const ctx = useContext(AuthContext);
+    const ownershipCtx = useContext(CardOwnershipContext)
 
     function editBtnHandler(){
         setEditing(true)
@@ -32,7 +34,7 @@ function ProfileJumbotron() {
                     <strong>Correo </strong> <br/>
                     {ctx.userInfo.email} <br/>
                     <strong>Cartas Coleccionadas </strong> <br/>
-                    55 <br/>
+                    {ownershipCtx.cardsOwned} <br/>
                 </p>
                 <Button btnType={'btn-ch'} onClick={editBtnHandler}>Editar</Button>
             </div>

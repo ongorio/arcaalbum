@@ -17,7 +17,8 @@ export const PlayersContext = React.createContext({
         1: [{
             id: 1, name: '', team: '', birthdate: '', height: '', pos: '', image: ''
         },]
-    }
+    },
+    notOwnedPlayers: []
 })
 
 export const PlayersContextProvider = (props) =>{
@@ -28,6 +29,7 @@ export const PlayersContextProvider = (props) =>{
 
     const [playersState, setPlayersState] = useState({})
     const [playersLoaded, setPlayersLoaded] = useState(false)
+    const [notOwnedPlayers, setNotOwnedPlayers] = useState([])
 
     async function getCountries(){
         const countriesCollection = collection(db, 'countries');
@@ -45,6 +47,7 @@ export const PlayersContextProvider = (props) =>{
         const playersSnap = await getDocs(playersCollection);
 
         const countriesMap = {};
+        const notOwnedPlayersList = [];
 
         playersSnap.docs.forEach(playerDoc=>{
             const docData = playerDoc.data();
@@ -52,8 +55,10 @@ export const PlayersContextProvider = (props) =>{
 
             if (ownershipCtx.playersOwned.hasOwnProperty(playerObj.id)) {
                 playerObj = {...playerObj, owned:true};
-                console.log('Player Owned: ', playerObj.name)
             }
+
+            if (!playerObj.owned) notOwnedPlayersList.push(playerObj);
+
             if(countriesMap.hasOwnProperty(docData.country)){
                 countriesMap[docData.country].push(playerObj);
             }else {
@@ -61,6 +66,7 @@ export const PlayersContextProvider = (props) =>{
             }
         })
         setPlayersState(countriesMap)
+        setNotOwnedPlayers(notOwnedPlayersList)
     }
 
     useEffect(()=>{
@@ -80,7 +86,8 @@ export const PlayersContextProvider = (props) =>{
         countries: countriesState,
         countriesLoaded: countriesLoaded,
         players: playersState,
-        playersLoaded: playersLoaded
+        playersLoaded: playersLoaded,
+        notOwnedPlayers: notOwnedPlayers
     }}>
         { (!countriesLoaded || !playersLoaded) ? <Loading /> : props.children}
     </PlayersContext.Provider>

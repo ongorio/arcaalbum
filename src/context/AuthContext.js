@@ -76,7 +76,6 @@ export const AuthContextProvider = props =>{
     }
 
     async function login(email, pswd) {
-        setUserInfoLoaded(false)
         let response = {errors: [], success: true};
 
         try{
@@ -85,9 +84,12 @@ export const AuthContextProvider = props =>{
             setUserInfo(prevState => {
                 return {...prevState, isAuthenticated:true,  email:user.email}
             });
+            setUserInfoLoaded(false);
         }catch (error){
             const errorCode = error.code;
             const errorMessage = error.message;
+            console.log('Error: ', errorCode)
+            console.log('Error Message: ', errorMessage)
 
             response = {...response, errors: [errorCode,], success: false}
         }
