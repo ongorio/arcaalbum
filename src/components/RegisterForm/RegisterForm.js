@@ -15,6 +15,8 @@ function RegisterForm () {
     const navigate = useNavigate();
     const ctx = useContext(AuthContext)
 
+    const [registerError, setRegisterError] = useState(null);
+
     const emailInputRef = useRef(null);
     const nombreInputRef = useRef(null);
     const apellidoInputRef = useRef(null);
@@ -83,7 +85,7 @@ function RegisterForm () {
 
         if (!isApellidoValid){
             setApellidoInputState(prevState => {
-                return {...prevState, errors: ['EL apellido debe tener una longitud de minimo 2'], isValid: false}
+                return {...prevState, errors: ['El apellido debe tener una longitud de minimo 2'], isValid: false}
             });
         }else{
             setApellidoInputState(prevState => {
@@ -108,13 +110,43 @@ function RegisterForm () {
 
         if (isEmailValid && isNombreValid && isApellidoValid && isPasswordValid){
 
-            let response = await ctx.register({emailValue, apellidoValue, nombreValue, passwordValue});
-            console.log(response)
-            // TODO: Handle firebase errors properly
+            try{
+                let response = await ctx.register({emailValue, apellidoValue, nombreValue, passwordValue});
+                // console.log(response)
+
+                if (response.success){
+                    navigate('/');
+                    setRegisterError(null)
+                    return;
+                }
+
+                let error = response.errors[0];
+
+                if (error === 'auth/email-already-in-use'){
+                    setRegisterError('El correo ya esta registrado');
+                }
+                else if (error === 'auth/weak-password'){
+                    setRegisterError('Contrasena demasiado sencilla');
+                }else {
+                    setRegisterError('Algo Salio mal! Intentalo mas tarde');
+                }
+            }catch (error){
+                console.log('Error Message: ', error.message);
+                setRegisterError('Algo Salio mal! Intentalo mas tarde');
+            }
+
         }
     }
 
     return <form className={`${styles['m-form']}`} onSubmit={onSubmitHandler}>
+        {
+            registerError &&
+            <div style={{marginBottom: '1rem'}}>
+                <ErrorMessage>{registerError} </ErrorMessage>
+            </div>
+        }
+
+
         <label>Correo</label>
         <div style={{marginBottom: '1rem'}}>
             <Input type={"email"} ref={emailInputRef} isValid={emailInputState.isValid} />

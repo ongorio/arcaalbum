@@ -6,7 +6,7 @@ function Question (props){
     const optionComponent = options.map(object =>{
         return <QuestionOption isCorrect={object.isCorrect} successNavigation={'/success'} failNavigation={'/fail'} key={object.id} text={object.text} />
     })
-    console.log(optionComponent)
+
     return <>
         <h1 className={'text-center'}> {questionText} </h1>
         <hr/>

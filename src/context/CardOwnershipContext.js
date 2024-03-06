@@ -4,9 +4,7 @@ import {db, auth} from "../fbapp/fbapp";
 
 import { getDocs, collection, query, where } from "firebase/firestore";
 
-import loading from "../components/Loading/Loading";
 import Loading from "../components/Loading/Loading";
-import {PlayersContext} from "./PlayersContext";
 
 export const CardOwnershipContext = React.createContext({
     playersOwned: {
@@ -23,8 +21,6 @@ export const CardOwnershipContext = React.createContext({
 export const CardOwnershipContextProvider = props=>{
     const [cardOwnershipLoaded, setCardOwnershipLoaded] = useState(false);
     const [playersOwnedState, setPlayersOwnedState] = useState({})
-    const [ke, setUpdate] = useState(0);
-
 
     async function getOwnership(){
         const ownershipCollection = collection(db, 'ownerships');
@@ -45,7 +41,6 @@ export const CardOwnershipContextProvider = props=>{
 
     function setLoading(){
         setCardOwnershipLoaded(false);
-        // setUpdate(prevState => prevState + 1)
         setTimeout(()=>{
             setCardOwnershipLoaded(true)
         }, 500)
@@ -71,7 +66,6 @@ export const CardOwnershipContextProvider = props=>{
         getOwnerships: getOwnership,
         cardsOwned: Object.keys(playersOwnedState).length,
         setLoading: setLoading,
-        key: ke
     }}>
         { !cardOwnershipLoaded ? <Loading/> :  props.children}
     </CardOwnershipContext.Provider>

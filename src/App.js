@@ -1,4 +1,5 @@
-import logo from './logo.svg';
+import { useContext } from "react";
+
 import './App.css';
 
 import { Route, Routes } from 'react-router-dom';
@@ -12,8 +13,13 @@ import NewCardView from "./screens/NewCardView";
 import RegisterView from "./screens/RegisterView";
 import LoginView from "./screens/LoginView";
 import ProfileView from "./screens/ProfileView";
+import NotFoundView from "./screens/NotFoundView";
+
+
+import {AuthContext} from "./context/AuthContext";
 
 function App() {
+    const authCtx = useContext(AuthContext);
   return (
     <Routes>
         <Route path='/' element={<HomeView/>} />
@@ -25,6 +31,8 @@ function App() {
         <Route path={'/registrar'} element={<RegisterView/>} />
         <Route path={'/ingresar'} element={<LoginView/>} />
         <Route path={'/perfil'} element={<ProfileView/>} />
+
+        <Route path={'/*'} element={<NotFoundView/>}/>
     </Routes>
   );
 }

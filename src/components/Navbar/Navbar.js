@@ -13,7 +13,9 @@ function Navbar () {
             <div className={`${styles['m-nav']}`}>
                 <NavLink to={'/'} className={`${styles['m-nav-link']}`}>Inicio</NavLink>
                 <NavLink to={'/album'} className={`${styles['m-nav-link']}`}>Album</NavLink>
-                <NavLink to={'/perfil'} className={`${styles['m-nav-link']}`}>Perfil</NavLink>
+                {ctx.userInfo.isAuthenticated &&
+                    <NavLink to={'/perfil'} className={`${styles['m-nav-link']}`}>Perfil</NavLink>
+                }
             </div>
             <div className={`${styles['m-nav']} m-ml-auto`}>
 

@@ -83,8 +83,11 @@ function NewCardView(){
 
     useEffect(() => {
 
-        // TODO: limit operations if no cards left and review 2 card operations
         let playersNotOwnedSize = playersCtx.notOwnedPlayers.length;
+
+        // If no players to add return
+        if(playersNotOwnedSize < 1) return;
+
         let number1 = Math.floor(Math.random() * playersNotOwnedSize);
         let number2;
 
@@ -98,9 +101,14 @@ function NewCardView(){
         let playersToAdd = [];
 
         const player1 = playersCtx.notOwnedPlayers[number1];
-        const player2 = playersCtx.notOwnedPlayers[number2];
+        playersToAdd.push(player1);
 
-        playersToAdd.push(player1, player2);
+        let player2;
+        if(playersNotOwnedSize > 1){
+            player2 = playersCtx.notOwnedPlayers[number2];
+            playersToAdd.push(player2);
+        }
+
 
         setPlayers(playersToAdd);
         createOwnerships(playersToAdd)
