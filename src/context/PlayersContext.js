@@ -51,7 +51,7 @@ export const PlayersContextProvider = (props) =>{
 
         playersSnap.docs.forEach(playerDoc=>{
             const docData = playerDoc.data();
-            let playerObj = {id: playerDoc.id, name: docData.name, image:docData.image, team: docData.team, birthdate: docData.birthdate, height: docData.height, pos: docData.pos, owned: false};
+            let playerObj = {id: playerDoc.id, name: docData.name, image:docData.image, team: docData.team, birthdate: docData.birthdate, height: docData.height, pos: docData.pos, country: docData.country, owned: false};
 
             if (ownershipCtx.playersOwned.hasOwnProperty(playerObj.id)) {
                 playerObj = {...playerObj, owned:true};

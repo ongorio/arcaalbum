@@ -23,6 +23,12 @@ function NewCardView(){
 
 
     const playersCard = players.map(player => {
+
+        const countryClass = playersCtx.countries.filter(country => {
+            return country.id === player.country;
+        })[0].countryClass;
+
+
         if (players.length > 1) {
             return <div className={'m-col-6'} key={player.id}>
                 <div className={'m-flex justify-center'}>
@@ -33,7 +39,7 @@ function NewCardView(){
                         birthdate={player.birthdate}
                         height={player.height}
                         playerPhoto={player.image}
-                        countryClass={'france'}
+                        countryClass={countryClass}
                     />
                 </div>
             </div>
